@@ -1,25 +1,29 @@
 <template>
   <div class="container">
-    <button type="button" class="btn btn-primary">{{ msg }}</button>
+    <alert :message="message"></alert>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Alert from './Alert';
 
 export default {
   name: 'Ping',
   data() {
     return {
-      msg: '',
+      message: '',
     };
+  },
+  components: {
+    alert: Alert,
   },
   methods: {
     getMessage() {
-      const path = 'http://localhost:5000/ping';
+      const path = 'http://localhost:8081/ping';
       axios.get(path)
         .then((res) => {
-          this.msg = res.data;
+          this.message = res.data;
         });
     },
   },

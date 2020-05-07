@@ -3,17 +3,21 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import BootstrapVue from 'bootstrap-vue';
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 import App from './App';
-import router from './router';
+import { routes } from './routes';
 
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
+Vue.use(VueRouter);
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>',
+const router = new VueRouter({
+  mode: 'history',
+  routes
 });
+
+new Vue({
+  render: h => h(App),
+  router
+}).$mount('#app')

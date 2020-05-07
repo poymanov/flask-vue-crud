@@ -13,6 +13,7 @@
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">Read?</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -92,11 +93,12 @@
                         placeholder="Enter author">
           </b-form-input>
         </b-form-group>
+
         <b-form-group id="form-read-edit-group">
-          <b-form-checkbox-group v-model="editForm.read" id="form-checks">
-            <b-form-checkbox value="true">Read?</b-form-checkbox>
-          </b-form-checkbox-group>
+          <b-form-checkbox id="form-checks" v-model="editForm.read"
+            name="read" value="true" unchecked-value="false">Read?</b-form-checkbox>
         </b-form-group>
+
         <b-button type="submit" variant="primary">Update</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
@@ -132,14 +134,14 @@ export default {
   },
   methods: {
     getBooks() {
-      const path = 'http://localhost:5000/books';
+      const path = 'http://localhost:8081/books';
       axios.get(path)
         .then((res) => {
           this.books = res.data.books;
         });
     },
     addBook(payload) {
-      const path = 'http://localhost:5000/books';
+      const path = 'http://localhost:8081/books';
       axios.post(path, payload)
         .then(() => {
           this.getBooks();
@@ -151,7 +153,7 @@ export default {
         });
     },
     updateBook(payload, bookId) {
-      const path = `http://localhost:5000/books/${bookId}`;
+      const path = `http://localhost:8081/books/${bookId}`;
       axios.put(path, payload)
         .then(() => {
           this.getBooks();
@@ -163,7 +165,7 @@ export default {
         });
     },
     removeBook(bookId) {
-      const path = `http://localhost:5000/books/${bookId}`;
+      const path = `http://localhost:8081/books/${bookId}`;
       axios.delete(path)
         .then(() => {
           this.getBooks();
